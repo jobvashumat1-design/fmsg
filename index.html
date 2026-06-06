@@ -507,8 +507,9 @@
   </div>
 </div>
 
-<script type="module">
-import { Client, Account, Databases, Storage, Query, ID, Permission, Role } from 'https://cdn.jsdelivr.net/npm/appwrite@17/src/index.js';
+<script src="https://cdn.jsdelivr.net/npm/appwrite@17/dist/iife/sdk.js"></script>
+<script>
+const { Client, Account, Databases, Storage, Query, ID, Permission, Role } = Appwrite;
 
 // ===== CONFIG =====
 const PROJECT_ID = '6a2477ce001a6594b5e5';
@@ -635,12 +636,14 @@ async function ensureCollections() {
 }
 
 // ===== CHECK SESSION =====
-try {
-  const user = await account.get();
-  await initApp(user);
-} catch(e) {
-  // not logged in
-}
+(async () => {
+  try {
+    const user = await account.get();
+    await initApp(user);
+  } catch(e) {
+    // not logged in
+  }
+})();
 
 // ===== SEARCH =====
 let searchTimer = null;
